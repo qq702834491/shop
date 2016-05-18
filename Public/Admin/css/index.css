@@ -1,14 +1,6 @@
-body{
-  background: url('../../img/adminbg.jpg');
-}
-.logo{
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-.logo img{
-  width: 200px;
-  height: 100px;
-}
-form{
-  margin-top: 30px;
+.row{
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 10px;
+	border-bottom:2px solid #369;
 }

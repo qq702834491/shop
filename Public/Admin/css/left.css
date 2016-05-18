@@ -1,0 +1,30 @@
+.left{
+	background-color: #336699;
+}
+.left>ul{
+	border-bottom: 0;
+}
+.left li{
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+.left li a{
+	color:#fff;
+}
+.left li a:hover,.left li a:focus{
+	background-color: #369;
+}
+.left .label{
+	font-size:14px;
+}
+.left .nav-tabs .li:last-child:link{
+	border-bottom-color: #369;
+}
+
+.secondmenu a {
+	font-size: 12px;
+	text-align: center;
+}
+
+
+

@@ -1,26 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>网上商城后台首页</title>
-  <link rel="stylesheet" type="text/css" href="/shop/Public/BS/css/bootstrap.min.css">
-  <script type="text/javascript" src="/shop/Public/BS/js/jquery.min.js"></script>
-  <script type="text/javascript" src="/shop/Public/BS/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="/shop/Public/BS/js/holder.min.js"></script>
-  <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>header.css">
-  <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>left.css">
-  <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>index.css">
-</head>
-<body>
-  <div class="header">
-  <div class="logo pull-left col-md-2"><a href="/shop/index.php/Admin/Index"><img src="<?php echo IMG_URL;?>logo.png" title="后台管理"></a></div>
-  <div class="welcome pull-right">
-    <span>欢迎<?php echo session('user');?>登录</span>
-    <a href=""><span class="glyphicon glyphicon-log-out"></span>退出</a>
-  </div>
-</div>
-  <div class="row">
-    <div class="left col-md-2">
+<div class="left col-md-2">
   <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
     <li>
       <a href="#index" class="nav-header collapsed" data-toggle="collapse">
@@ -74,24 +52,3 @@
   </ul>
 </div>
 
-
-    <div class="right col-md-10">
-  <div class="jumbotron">
-    <div class="container">
-      <h2>欢迎来到商城后台</h2>
-      <hr>
-      <br>
-      <p class="text-success">你的IP地址为：xxxxxxxxxxxxxxxxx</p>
-      <p class="text-warning">上一次登录的时间：xxxxxxxxxxxxxxxxxxxxxx</p>
-      <p class="text-warning">上一次登录的ip：xxxxxxxxxxxxxx</p>
-    </div>
-  </div>
-</div>
-  </div>
-  <div class="footer text-center clearfix">
-  <span>友情链接：</span><a href="//www.manjusakaj.com" target="_blank">Manjusaka's Blog</a>
-  <span>联系方式：manjusakaj.qq.com</span>
-  <span>版权所有</span><i class="glyphicon glyphicon-copyright-mark"></i>
-</div>
-</body>
-</html>
