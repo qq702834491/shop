@@ -1,0 +1,32 @@
+*{
+  list-style: none;
+  font-family: 微软雅黑;
+}
+.header{
+  height: 35px;
+  font-size:12px;
+}
+.header .left{
+  padding-left: 0px;
+  line-height: 35px;
+}
+.header .left li{
+  margin-left: 10px;
+}
+.header li a{
+  color: #6c6c6c;
+  text-decoration: none;
+}
+.header .first{
+  color:#369;
+}
+.header li a:hover{
+  color:#369;
+}
+.header .right{
+  padding-right: 10px;
+  line-height: 35px;
+}
+.header .right li{
+  margin-right: 20px;
+}

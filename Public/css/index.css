@@ -1,0 +1,121 @@
+.clearfix{
+  clear:both;
+}
+.sub{
+  clear:both;
+  margin-bottom: 10px;
+}
+.search{
+  line-height: 100px;
+}
+.sub button{
+  width: 100px;
+  margin-left: -130px;
+}
+.logo img{
+  height: 100px;
+  width: 200px;
+}
+.nav .first{
+  background-color: #369;
+  height: 44px;
+  width: 210px;
+  padding-left: 15px;
+}
+.nav .first a,.nav .first a:hover{
+  color: #fff;
+}
+
+.nav li{
+  height: 44px;
+  width: 88px;
+  line-height: 44px;
+}
+.nav li a{
+  color: #666;
+  text-decoration: none;
+  font-size:15px;
+}
+.nav li a:hover{
+  color: #428bca;
+}
+.nav ul{
+  padding-left: 0;
+}
+.nav{
+  border-bottom: 2px solid #369;
+}
+.mid{
+  padding-left: 0;
+  padding-right: 0;
+}
+.classify ul{
+  padding-left: 0;
+  color:#fff;
+}
+.classify li a{
+  color:#fff;
+}
+.classify li{
+  background-color: #428bca;
+  height: 31px;
+  width: 210px;
+}
+.classify h3{
+  line-height: 31px;
+  padding-left: 10px;
+}
+
+.classify h3{
+  font-size:14px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.classify span{
+  margin-top: 9px;
+  margin-right: 10px;
+}
+
+.carousel-inner img{
+  width: 730px;
+  height: 454px !important;
+}
+.personal{
+  width: 230px;
+  padding-right: 0;
+ 
+  background: url('../img/bg.jpg');
+}
+.personal img{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100px;
+  height: 100px;
+}
+.personal a{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+}
+.kefu{
+  border:1px solid #ccc;
+  width: 230px;
+  height: 230px;
+  margin-top: 14px;
+  padding-left: 10px;
+}
+.subtitle{
+  font-size:26px;
+  border-bottom:1px solid #428bca;
+}
+.subtitle .glyphicon{
+  color:#369;
+}
+.hotSales,.newSales{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.goods{
+  margin:12px;
+  border:1px solid #428bca;
+}
