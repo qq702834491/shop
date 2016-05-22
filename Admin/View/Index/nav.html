@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>网上商城导航栏管理</title>
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/BS/css/bootstrap.min.css">
+  <script type="text/javascript" src="__PUBLIC__/BS/js/jquery.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/BS/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/BS/js/holder.min.js"></script>
+  <link rel="stylesheet" href="{:ADMIN_CSS}header.css">
+  <link rel="stylesheet" href="{:ADMIN_CSS}left.css">
+  <link rel="stylesheet" href="{:ADMIN_CSS}index.css">
+  <link rel="stylesheet" href="{:ADMIN_CSS}nav.css">
+  <script type="text/javascript" src="{:ADMIN_JS}nav.js"></script>
+  <!--为外部js定义thinkphp使用的系统、路径常量-->
+  <script>
+    var CONTROLLER="__CONTROLLER__";
+  </script>
+</head>
+<body>
+  <include file="Public:header"/>
+  <div class="row">
+    <include file="Public:left"/>
+    <div class="right col-md-10">
+      <div class="container">
+        <h2 class="text-primary">导航栏管理</h2><span class="help-block">首页最多只能显示8个导航信息</span>
+        <!--预览-->
+        <div class="preview">
+          <h3>首页导航预览</h3>
+          <ul class="nav navbar">
+            <foreach name="preview" item="preV">
+              <li class="pull-left">{$preV}</li>
+            </foreach>
+          </ul>
+        </div>
+        <!--导航条列表-->
+        <div class="list">
+          <table class="table table-bordered">
+            <tr class="success">
+              <td class="text-center col-md-8">导航名称</td>
+              <td class="text-center col-md-4">操作</td>
+            </tr>
+            <!--用$time来监控foreach循环次数-->
+            <foreach name="list" item="nav">
+              <tr class="active tr{$nav.n_id}">
+                <td class="text-center">{$nav.name}</td>
+                <td class="text-center">
+                  <button class="yes btn btn-primary btn-xs" id="show{$nav.n_id}" onclick="showIndex({$nav.n_id})" <if condition="$nav[is_index] eq 1">disabled</if>>在首页显示</button>
+                  <button class="no btn btn-warning btn-xs" id="hide{$nav.n_id}" onclick="hideIndex({$nav.n_id})" <if condition="$nav[is_index] eq 0">disabled</if>>在首页隐藏</button>
+                  <button class="del btn btn-danger btn-xs" id="del{$nav.n_id}">
+                    <span class="glyphicon glyphicon-remove"></span>删除
+                  </button>
+                </td>
+              </tr>
+            </foreach>
+          </table>
+        </div>
+        <!--添加导航的表单-->
+        <form class="form-inline" method="post">
+          <div class="form-group">
+            <input type="text" name="name" class="form-control" placeholder="导航信息">
+          </div>
+          <div class="form-group">
+            <input type="text" name="url" class="form-control" placeholder="导航链接">
+          </div>
+          <div class="form-group">
+            <botton class="nav_add btn btn-primary">添加</botton>
+          </div>
+          <i></i>
+        </form>
+      </div>
+    </div>
+  </div>
+  <include file="Public:footer"/>
+</body>
+</html>

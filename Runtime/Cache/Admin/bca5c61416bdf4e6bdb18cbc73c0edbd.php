@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>网上商城后台首页</title>
+  <title>网上商城导航栏管理</title>
   <link rel="stylesheet" type="text/css" href="/shop/Public/BS/css/bootstrap.min.css">
   <script type="text/javascript" src="/shop/Public/BS/js/jquery.min.js"></script>
   <script type="text/javascript" src="/shop/Public/BS/js/bootstrap.min.js"></script>
@@ -10,6 +10,12 @@
   <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>header.css">
   <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>left.css">
   <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>index.css">
+  <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>nav.css">
+  <script type="text/javascript" src="<?php echo ADMIN_JS;?>nav.js"></script>
+  <!--为外部js定义thinkphp使用的系统、路径常量-->
+  <script>
+    var CONTROLLER="/shop/index.php/Admin/Index";
+  </script>
 </head>
 <body>
   <div class="header">
@@ -76,17 +82,50 @@
 
 
     <div class="right col-md-10">
-  <div class="jumbotron">
-    <div class="container">
-      <h2>欢迎来到商城后台</h2>
-      <hr>
-      <br>
-      <p class="text-success">你的IP地址为：xxxxxxxxxxxxxxxxx</p>
-      <p class="text-warning">上一次登录的时间：xxxxxxxxxxxxxxxxxxxxxx</p>
-      <p class="text-warning">上一次登录的ip：xxxxxxxxxxxxxx</p>
+      <div class="container">
+        <h2 class="text-primary">导航栏管理</h2><span class="help-block">首页最多只能显示8个导航信息</span>
+        <!--预览-->
+        <div class="preview">
+          <h3>首页导航预览</h3>
+          <ul class="nav navbar">
+            <?php if(is_array($preview)): foreach($preview as $key=>$preV): ?><li class="pull-left"><?php echo ($preV); ?></li><?php endforeach; endif; ?>
+          </ul>
+        </div>
+        <!--导航条列表-->
+        <div class="list">
+          <table class="table table-bordered">
+            <tr class="success">
+              <td class="text-center col-md-8">导航名称</td>
+              <td class="text-center col-md-4">操作</td>
+            </tr>
+            <!--用$time来监控foreach循环次数-->
+            <?php if(is_array($list)): foreach($list as $key=>$nav): ?><tr class="active tr<?php echo ($nav["n_id"]); ?>">
+                <td class="text-center"><?php echo ($nav["name"]); ?></td>
+                <td class="text-center">
+                  <button class="yes btn btn-primary btn-xs" id="show<?php echo ($nav["n_id"]); ?>" onclick="showIndex(<?php echo ($nav["n_id"]); ?>)" <?php if($nav[is_index] == 1): ?>disabled<?php endif; ?>>在首页显示</button>
+                  <button class="no btn btn-warning btn-xs" id="hide<?php echo ($nav["n_id"]); ?>" onclick="hideIndex(<?php echo ($nav["n_id"]); ?>)" <?php if($nav[is_index] == 0): ?>disabled<?php endif; ?>>在首页隐藏</button>
+                  <button class="del btn btn-danger btn-xs" id="del<?php echo ($nav["n_id"]); ?>">
+                    <span class="glyphicon glyphicon-remove"></span>删除
+                  </button>
+                </td>
+              </tr><?php endforeach; endif; ?>
+          </table>
+        </div>
+        <!--添加导航的表单-->
+        <form class="form-inline" method="post">
+          <div class="form-group">
+            <input type="text" name="name" class="form-control" placeholder="导航信息">
+          </div>
+          <div class="form-group">
+            <input type="text" name="url" class="form-control" placeholder="导航链接">
+          </div>
+          <div class="form-group">
+            <botton class="nav_add btn btn-primary">添加</botton>
+          </div>
+          <i></i>
+        </form>
+      </div>
     </div>
-  </div>
-</div>
   </div>
   <div class="footer text-center clearfix">
   <span>友情链接：</span><a href="//www.manjusakaj.com" target="_blank">Manjusaka's Blog</a>

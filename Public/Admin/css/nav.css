@@ -1,0 +1,19 @@
+form i{
+	color:red;
+	display:none;
+}
+form{
+	margin: 10px;
+}
+.list>.row{
+	margin: 10px;
+	margin-left: 0;
+}
+.preview ul{
+	background-color: #272822;
+	color:#fff;
+}
+.preview li{
+	padding: 10px;
+	font-size:16px;
+}

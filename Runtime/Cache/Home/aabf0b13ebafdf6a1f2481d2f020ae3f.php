@@ -58,14 +58,7 @@
   <div class="container nav clearfix">
     <ul>
       <li class="pull-left first"><a href="">全部商品分类</a></li>
-      <li class="pull-left text-center"><a href="">服装城</a></li>
-      <li class="pull-left text-center"><a href="">美妆馆</a></li>
-      <li class="pull-left text-center"><a href="">超市</a></li>
-      <li class="pull-left text-center"><a href="">全球购</a></li>
-      <li class="pull-left text-center"><a href="">闪购</a></li>
-      <li class="pull-left text-center"><a href="">团购</a></li>
-      <li class="pull-left text-center"><a href="">拍卖</a></li>
-      <li class="pull-left text-center"><a href="">金融</a></li>
+      <?php if(is_array($nav)): foreach($nav as $key=>$navList): ?><li class="pull-left text-center"><a href="<?php echo ($navList); ?>"><?php echo ($key); ?></a></li><?php endforeach; endif; ?>
     </ul>
   </div>
   <div class="mid container">
