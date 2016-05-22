@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
-class IndexController extends Controller {
+class IndexController extends Common {
   //主页内容显示
   public function index(){
     $this->display();
@@ -19,7 +19,7 @@ class IndexController extends Controller {
     $nav=M("Nav");
     //判断名称是否合法
     $is_ok=$nav->where("name='$name'")->find();
-    if($is_ok==0){
+    if($is_ok==null){
       //统计数据条数
       $nav->create();
       $nav->is_index=0;
@@ -27,7 +27,6 @@ class IndexController extends Controller {
       //添加成功返回数据
       if($nav->add()){
         $msg['state']=true;
-        $msg['position']=$count;
       }
     }else{
       $msg['state']=false;
@@ -65,6 +64,47 @@ class IndexController extends Controller {
     $nav->is_index=0;
     $nav->addtime=time();
     if($nav->where("n_id=$n_id")->save()){
+      $msg['state']=true;
+    }
+    $this->ajaxReturn($msg);
+  }
+  //客服管理功能
+  public function kefu(){
+    $kefu=M("Kefu");
+    $this->list=$kefu->order('k_id desc')->select();
+    $this->display();
+  }
+  //添加客服信息
+  public function addKefu(){
+    $name=I("post.name");
+    $kefu=M("Kefu");
+    $is_ok=$kefu->where("name='$name'")->find();
+    if($is_ok==null){
+      $kefu->create();
+      if($kefu->add()){
+        $msg['state']=true;
+      }
+    }else{
+      $msg['state']=false;
+      $msg['error']="客服名字已存在";
+    }
+    $this->ajaxReturn($msg);
+  }
+  //删除客服信息
+  public function delKefu(){
+    $k_id=I("post.k_id");
+    $kefu=M("Kefu");
+    if($kefu->where("k_id='$k_id'")->delete()){
+      $msg['state']=true;
+    }
+    $this->ajaxReturn($msg);
+  }
+  //修改客服信息
+  public function modifyKefu(){
+    $name=I("post.name");
+    $kefu=M("Kefu");
+    $kefu->information=I("post.information");
+    if($kefu->where("name='$name'")->save()){
       $msg['state']=true;
     }
     $this->ajaxReturn($msg);

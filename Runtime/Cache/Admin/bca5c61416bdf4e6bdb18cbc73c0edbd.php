@@ -21,7 +21,7 @@
   <div class="header">
   <div class="logo pull-left col-md-2"><a href="/shop/index.php/Admin/Index"><img src="<?php echo IMG_URL;?>logo.png" title="后台管理"></a></div>
   <div class="welcome pull-right">
-    <span>欢迎<?php echo session('user');?>登录</span>
+    <span>欢迎<?php echo session('admin');?>登录</span>
     <a href=""><span class="glyphicon glyphicon-log-out"></span>退出</a>
   </div>
 </div>
@@ -37,7 +37,7 @@
       <ul id="index" class="nav nav-list collapse secondmenu" style="height: 0px;">
         <li><a href="/shop/index.php/Admin/Index/nav"><i class="glyphicon glyphicon-user"></i>导航栏内容管理</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i>推荐商品管理</a></li>
-        <li><a href="#"><i class="glyphicon glyphicon-comment"></i>客服联系方式管理</a></li>
+        <li><a href="/shop/index.php/Admin/Index/kefu"><i class="glyphicon glyphicon-comment"></i>客服联系方式管理</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-fire"></i>热卖商品管理</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-new-window"></i>新品商品管理</a></li>
       </ul>

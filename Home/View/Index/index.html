@@ -119,11 +119,9 @@
     </div>
     <div class="kefu pull-right">
       <h3>联系客服</h3>
-      <p>客服1联系方式:XXXXXXXXX</p>
-      <p>客服2联系方式:XXXXXXXXX</p>
-      <p>客服3联系方式:XXXXXXXXX</p>
-      <p>客服4联系方式:XXXXXXXXX</p>
-      <p>客服5联系方式:XXXXXXXXX</p>
+      <foreach name="kefu" item="kefuList">
+        <p>{$key}：{$kefuList}</p>
+      </foreach>
     </div>
   </div>
   <div class="hotSales container">

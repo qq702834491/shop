@@ -145,11 +145,7 @@
     </div>
     <div class="kefu pull-right">
       <h3>联系客服</h3>
-      <p>客服1联系方式:XXXXXXXXX</p>
-      <p>客服2联系方式:XXXXXXXXX</p>
-      <p>客服3联系方式:XXXXXXXXX</p>
-      <p>客服4联系方式:XXXXXXXXX</p>
-      <p>客服5联系方式:XXXXXXXXX</p>
+      <?php if(is_array($kefu)): foreach($kefu as $key=>$kefuList): ?><p><?php echo ($key); ?>：<?php echo ($kefuList); ?></p><?php endforeach; endif; ?>
     </div>
   </div>
   <div class="hotSales container">
@@ -200,7 +196,7 @@
   </div>
   <div class="footer container text-center">
   <span>友情链接：</span><a href="//www.manjusakaj.com" target="_blank">Manjusaka's Blog</a>
-  <span>联系方式：manjusakaj.qq.com</span>
+  <span>联系方式：manjusakaj@qq.com</span>
   <span>版权所有</span><i class="glyphicon glyphicon-copyright-mark"></i>
 </div>
 </body>

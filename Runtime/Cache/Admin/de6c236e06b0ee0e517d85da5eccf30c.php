@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>网上商城后台首页</title>
+  <title>网上商城客服管理</title>
   <link rel="stylesheet" type="text/css" href="/shop/Public/BS/css/bootstrap.min.css">
   <script type="text/javascript" src="/shop/Public/BS/js/jquery.min.js"></script>
   <script type="text/javascript" src="/shop/Public/BS/js/bootstrap.min.js"></script>
@@ -10,17 +10,23 @@
   <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>header.css">
   <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>left.css">
   <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>index.css">
+  <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>kefu.css">
+  <script type="text/javascript" src="<?php echo ADMIN_JS;?>kefu.js"></script>
+  <script>
+    //将thinkphp的系统常量、路径常量传递给外部js
+    var CONTROLLER="/shop/index.php/Admin/Index";
+  </script>
 </head>
 <body>
-  <div class="header">
+<div class="header">
   <div class="logo pull-left col-md-2"><a href="/shop/index.php/Admin/Index"><img src="<?php echo IMG_URL;?>logo.png" title="后台管理"></a></div>
   <div class="welcome pull-right">
     <span>欢迎<?php echo session('admin');?>登录</span>
     <a href=""><span class="glyphicon glyphicon-log-out"></span>退出</a>
   </div>
 </div>
-  <div class="row">
-    <div class="left col-md-2">
+<div class="row">
+  <div class="left col-md-2">
   <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
     <li>
       <a href="#index" class="nav-header collapsed" data-toggle="collapse">
@@ -75,23 +81,74 @@
 </div>
 
 
-    <div class="right col-md-10">
-  <div class="jumbotron">
+  <div class="right col-md-10">
     <div class="container">
-      <h2>欢迎来到商城后台</h2>
-      <hr>
-      <br>
-      <p class="text-success">你的IP地址为：xxxxxxxxxxxxxxxxx</p>
-      <p class="text-warning">上一次登录的时间：xxxxxxxxxxxxxxxxxxxxxx</p>
-      <p class="text-warning">上一次登录的ip：xxxxxxxxxxxxxx</p>
+      <h2 class="text-primary">客服管理</h2><span class="help-block">首页最多只能显示5个客服信息</span>
+      <table class="table table-bordered">
+        <tr>
+          <th class="text-center">客服名字</th>
+          <th class="text-center">联系方式</th>
+          <th class="text-center">操作</th>
+        </tr>
+        <!--计算循环次数-->
+        <?php $times=0; ?>
+        <?php if(is_array($list)): foreach($list as $key=>$kefuList): if($times++ < 5): ?><tr class="tr<?php echo ($kefuList["k_id"]); ?> success">
+          <?php else: ?>
+            <tr class="tr<?php echo ($kefuList["k_id"]); ?>"><?php endif; ?>
+            <td class="text-center"><?php echo ($kefuList["name"]); ?></td>
+            <td class="text-center"><?php echo ($kefuList["information"]); ?></td>
+            <td class="text-center">
+              <!--modal触发按钮-->
+              <botton class="btn btn-warning btn-xs modify" id="modify<?php echo ($kefuList["k_id"]); ?>" data-toggle="modal" data-target="#modifyModal">修改</botton>
+              <botton class="btn btn-danger btn-xs del" id="del<?php echo ($kefuList["k_id"]); ?>">删除</botton>
+            </td>
+          </tr><?php endforeach; endif; ?>
+      </table>
+      <div class="form-inline">
+        <div class="form-group">
+          <input type="text" name="name" placeholder="客服名字" class="form-control">
+        </div>
+        <div class="form-group">
+          <input type="text" name="information" placeholder="客服联系方式" class="form-control">
+        </div>
+        <div class="form-group">
+          <botton class="btn btn-primary submit">提交</botton>
+        </div>
+        <div class="tips"></div>
+      </div>
     </div>
   </div>
 </div>
-  </div>
-  <div class="footer text-center clearfix">
+<div class="footer text-center clearfix">
   <span>友情链接：</span><a href="//www.manjusakaj.com" target="_blank">Manjusaka's Blog</a>
-  <span>联系方式：manjusakaj.qq.com</span>
+  <span>联系方式：manjusakaj@qq.com</span>
   <span>版权所有</span><i class="glyphicon glyphicon-copyright-mark"></i>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modifyModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">修改客服信息</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="name">客服名：</label>
+          <input type="text" name="name" id="name" class="form-control" disabled />
+        </div>
+        <div class="form-group">
+          <label for="information">联系信息：</label>
+          <input type="text" name="information" id="information" class="form-control">
+        </div>
+        <div class="modalTips">ss</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary save">保存</button>
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 </html>
