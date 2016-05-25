@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>网上商城后台首页</title>
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/BS/css/bootstrap.min.css">
+  <script type="text/javascript" src="__PUBLIC__/BS/js/jquery.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/BS/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/BS/js/holder.min.js"></script>
+  <link rel="stylesheet" href="{:ADMIN_CSS}header.css">
+  <link rel="stylesheet" href="{:ADMIN_CSS}left.css">
+  <link rel="stylesheet" href="{:ADMIN_CSS}index.css">
+  <link rel="stylesheet" type="text/css" href="{:ADMIN_CSS}admin.css">
+  <script type="text/javascript" src="{:ADMIN_JS}admin.js"></script>
+</head>
+<body>
+  <include file="Public:header"/>
+  <div class="row">
+    <include file="Public:left"/>
+    <div class="right col-md-10">
+    	<div class="container">
+    		<div class="list">
+    			<foreach name="list" item="adminList">
+    				{$adminList.a_id}
+    				{$adminList.username}
+    				{$adminList.add_time}
+    			</foreach>
+    		</div>
+    		<div class="col-md-6 form">
+    			<form action="__CONTROLLER__/adminAdd" method="post" class="form-horizontal">
+	    			<div class="form-group">
+					    <label for="adminName" class="col-md-4 control-label">管理员名称：</label>
+					    <div class="col-md-8">
+					      <input type="text" class="form-control" name="adminName" id="adminName" placeholder="新添加的管理员名称">
+					    </div>
+					  	<div class="tips col-md-8 col-md-offset-4"></div>
+					  </div>
+					  <div class="form-group">
+					  	<div class="col-md-8 col-md-offset-4">
+					  		<button class="btn btn-primary">添加</button>
+					    </div>
+					  </div>
+    			</form>
+    		</div>
+    	</div>
+    </div>
+  </div>
+  <include file="Public:footer"/>
+</body>
+</html>

@@ -10,7 +10,11 @@ use Think\Controller;
 class LoginController extends Controller{
     //登录首页
     public function index(){
-        $this->display('login');
+        if(session('login')!=1){
+            $this->display('login');    //未登录
+        }else{
+            $this->redirect('index/index','',0);    //已登录
+        }
     }
     //验证码实现
     public function Verify(){
@@ -27,14 +31,24 @@ class LoginController extends Controller{
         if($this->check_verify($vcode)){
             $admin=M("Admin");
             //判断是否登录成功
-            $isLogin=$admin->where("username='$username' and pwd='$pwd'")->count();
-            if($isLogin==0){
+            $isLogin=$admin->where("username='$username' and pwd='$pwd'")->getField('root');
+            //$isLogin是0表示总管理员，$isLogin是1表示子管理员
+            if($isLogin!=0&&$isLogin!=1){
                 $msg['state']=false;
                 $msg['error']="用户名或密码错误";
             }else{
+                $data=$admin->where("username='$username'")->getField('last_time,last_ip');
+                foreach ($data as $key=>$value) {
+                    session('last_time',$key);
+                    session('last_ip',$value);
+                }
                 $msg['state']=true;
                 session('admin',$username);
+                session('root',$isLogin);
                 session('login',1);
+                $admin->last_time=time();
+                $admin->last_ip=get_client_ip();    //获取客户端ip
+                $admin->where("username='$username'")->save();
             }
         }else{
             $msg['state']=false;
@@ -46,5 +60,10 @@ class LoginController extends Controller{
     function check_verify($code, $id = ''){
         $verify = new \Think\Verify();
         return $verify->check($code, $id);
+    }
+    //退出登录
+    public function logout(){
+        session(null);
+        $this->index();
     }
 }

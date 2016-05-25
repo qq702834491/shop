@@ -10,10 +10,12 @@
   <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>header.css">
   <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>left.css">
   <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>index.css">
+  <link rel="stylesheet" type="text/css" href="<?php echo ADMIN_CSS;?>admin.css">
+  <script type="text/javascript" src="<?php echo ADMIN_JS;?>admin.js"></script>
 </head>
 <body>
   <div class="header">
-  <div class="logo pull-left col-md-2"><a href="/shop/index.php/Admin/Index"><img src="<?php echo IMG_URL;?>logo.png" title="后台管理"></a></div>
+  <div class="logo pull-left col-md-2"><a href="/shop/index.php/Admin/index/index"><img src="<?php echo IMG_URL;?>logo.png" title="后台管理"></a></div>
   <div class="welcome pull-right">
     <span>欢迎<?php echo session('admin');?>登录</span>
     <a href="/shop/index.php/Admin/Login/logout"><span class="glyphicon glyphicon-log-out"></span>退出</a>
@@ -29,9 +31,9 @@
         <span class="pull-right glyphicon glyphicon-chevron-down"></span>
       </a>
       <ul id="index" class="nav nav-list collapse secondmenu" style="height: 0px;">
-        <li><a href="/shop/index.php/Admin/Index/nav"><i class="glyphicon glyphicon-user"></i>导航栏内容管理</a></li>
+        <li><a href="/shop/index.php/Admin/User/nav"><i class="glyphicon glyphicon-user"></i>导航栏内容管理</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i>推荐商品管理</a></li>
-        <li><a href="/shop/index.php/Admin/Index/kefu"><i class="glyphicon glyphicon-comment"></i>客服联系方式管理</a></li>
+        <li><a href="/shop/index.php/Admin/User/kefu"><i class="glyphicon glyphicon-comment"></i>客服联系方式管理</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-fire"></i>热卖商品管理</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-new-window"></i>新品商品管理</a></li>
       </ul>
@@ -45,10 +47,15 @@
     </li>
 
     <li>
-      <a href="">
+      <a href="#user" class="nav-header collapsed" data-toggle="collapse">
         <i class="glyphicon glyphicon-user"></i>
         用户管理
+        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
       </a>
+      <ul id="user" class="nav nav-list collapse secondmenu" style="height: 0px;">
+        <li><a href="/shop/index.php/Admin/User/admin"><i class="glyphicon glyphicon-asterisk"></i>管理员管理</a></li>
+        <li><a href="/shop/index.php/Admin/User/user"><i class="glyphicon glyphicon-user"></i>顾客管理</a></li>
+      </ul>
     </li>
 
     <li>
@@ -76,17 +83,30 @@
 
 
     <div class="right col-md-10">
-  <div class="jumbotron">
-    <div class="container">
-      <h2>欢迎来到商城后台</h2>
-      <hr>
-      <br>
-      <p class="text-success">你的IP地址为：<?php echo get_client_ip(); ?></p>
-      <p class="text-warning">上一次登录的时间：<?php echo date('Y-m-d H:i:s',session('last_time'));?></p>
-      <p class="text-warning">上一次登录的ip：<?php echo session('last_ip');?></p>
+    	<div class="container">
+    		<div class="list">
+    			<?php if(is_array($list)): foreach($list as $key=>$adminList): echo ($adminList["a_id"]); ?>
+    				<?php echo ($adminList["username"]); ?>
+    				<?php echo ($adminList["add_time"]); endforeach; endif; ?>
+    		</div>
+    		<div class="col-md-6 form">
+    			<form action="/shop/index.php/Admin/User/adminAdd" method="post" class="form-horizontal">
+	    			<div class="form-group">
+					    <label for="adminName" class="col-md-4 control-label">管理员名称：</label>
+					    <div class="col-md-8">
+					      <input type="text" class="form-control" name="adminName" id="adminName" placeholder="新添加的管理员名称">
+					    </div>
+					  	<div class="tips col-md-8 col-md-offset-4"></div>
+					  </div>
+					  <div class="form-group">
+					  	<div class="col-md-8 col-md-offset-4">
+					  		<button class="btn btn-primary">添加</button>
+					    </div>
+					  </div>
+    			</form>
+    		</div>
+    	</div>
     </div>
-  </div>
-</div>
   </div>
   <div class="footer text-center clearfix">
   <span>友情链接：</span><a href="//www.manjusakaj.com" target="_blank">Manjusaka's Blog</a>

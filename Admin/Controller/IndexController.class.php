@@ -4,6 +4,10 @@ use Think\Controller;
 class IndexController extends Common {
   //主页内容显示
   public function index(){
+    $admin=M("Admin");
+    $adminName=session('admin');
+    //上次登录信息
+    $this->data=$admin->where("username='$adminName'")->getField('last_time,last_ip');
     $this->display();
   }
   //导航栏列表显示

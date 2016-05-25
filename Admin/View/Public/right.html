@@ -4,9 +4,9 @@
       <h2>欢迎来到商城后台</h2>
       <hr>
       <br>
-      <p class="text-success">你的IP地址为：xxxxxxxxxxxxxxxxx</p>
-      <p class="text-warning">上一次登录的时间：xxxxxxxxxxxxxxxxxxxxxx</p>
-      <p class="text-warning">上一次登录的ip：xxxxxxxxxxxxxx</p>
+      <p class="text-success">你的IP地址为：<php>echo get_client_ip();</php></p>
+      <p class="text-warning">上一次登录的时间：{:date('Y-m-d H:i:s',session('last_time'))}</p>
+      <p class="text-warning">上一次登录的ip：{:session('last_ip')}</p>
     </div>
   </div>
 </div>

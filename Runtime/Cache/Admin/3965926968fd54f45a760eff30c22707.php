@@ -13,7 +13,7 @@
 </head>
 <body>
   <div class="header">
-  <div class="logo pull-left col-md-2"><a href="/shop/index.php/Admin/Index"><img src="<?php echo IMG_URL;?>logo.png" title="后台管理"></a></div>
+  <div class="logo pull-left col-md-2"><a href="/shop/index.php/Admin/index/index"><img src="<?php echo IMG_URL;?>logo.png" title="后台管理"></a></div>
   <div class="welcome pull-right">
     <span>欢迎<?php echo session('admin');?>登录</span>
     <a href="/shop/index.php/Admin/Login/logout"><span class="glyphicon glyphicon-log-out"></span>退出</a>
@@ -45,10 +45,15 @@
     </li>
 
     <li>
-      <a href="">
+      <a href="#user" class="nav-header collapsed" data-toggle="collapse">
         <i class="glyphicon glyphicon-user"></i>
         用户管理
+        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
       </a>
+      <ul id="user" class="nav nav-list collapse secondmenu" style="height: 0px;">
+        <li><a href="/shop/index.php/Admin/User/admin"><i class="glyphicon glyphicon-asterisk"></i>管理员管理</a></li>
+        <li><a href="/shop/index.php/Admin/User/user"><i class="glyphicon glyphicon-user"></i>顾客管理</a></li>
+      </ul>
     </li>
 
     <li>
