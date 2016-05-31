@@ -64,31 +64,9 @@
   <div class="mid container">
     <div class="classify pull-left">
       <ul>
-        <li>
-          <h3><a href="">家用电器</a><span class="glyphicon glyphicon-chevron-right pull-right"></span></h3>
-        </li>
-        <li>
-          <h3><a href="">手机</a>、<a href="">数码</a>、<a href="">通信</a><span class="glyphicon glyphicon-chevron-right pull-right"></span></h3>
-        </li>
-        <li>
-          <h3><a href="">电脑</a>、<a href="">办公</a><span class="glyphicon glyphicon-chevron-right pull-right"></span></h3>
-        </li>
-        <li>
-          <h3><a href="">电脑</a>、<a href="">办公</a><span class="glyphicon glyphicon-chevron-right pull-right"></span></h3>
-        </li>
-        <li>
-          <h3><a href="">电脑</a>、<a href="">办公</a><span class="glyphicon glyphicon-chevron-right pull-right"></span></h3>
-        </li>
-        <li>
-          <h3><a href="">电脑</a>、<a href="">办公</a><span class="glyphicon glyphicon-chevron-right pull-right"></span></h3>
-        </li>
-        <li>
-          <h3><a href="">电脑</a>、<a href="">办公</a><span class="glyphicon glyphicon-chevron-right pull-right"></span></h3>
-        </li>
-        <li>
-          <h3><a href="">电脑</a>、<a href="">办公</a><span class="glyphicon glyphicon-chevron-right pull-right"></span></h3>
-        </li>
-
+        <?php if(is_array($category)): foreach($category as $key=>$categoryList): ?><li>
+            <h3><a href=""><?php echo ($categoryList); ?></a><span class="glyphicon glyphicon-chevron-right pull-right"></span></h3>
+          </li><?php endforeach; endif; ?>
       </ul>
     </div>
     <div id="carousel-example-generic" class="carousel slide pull-left" data-ride="carousel">

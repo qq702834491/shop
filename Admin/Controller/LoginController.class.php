@@ -31,21 +31,21 @@ class LoginController extends Controller{
         if($this->check_verify($vcode)){
             $admin=M("Admin");
             //判断是否登录成功
-            $isLogin=$admin->where("username='$username' and pwd='$pwd'")->getField('root');
-            //$isLogin是0表示总管理员，$isLogin是1表示子管理员
-            if($isLogin!=0&&$isLogin!=1){
+            $isLogin=$admin->where("username='$username' and pwd='$pwd'")->find();
+            //$isLogin判断用户名密码是否正确
+            if($isLogin===null){
                 $msg['state']=false;
                 $msg['error']="用户名或密码错误";
             }else{
-                $data=$admin->where("username='$username'")->getField('last_time,last_ip');
-                foreach ($data as $key=>$value) {
-                    session('last_time',$key);
-                    session('last_ip',$value);
+                $data=$admin->where("username='$username'")->getField('last_time,last_ip,root');
+                foreach($data as $key => $value){
+                    session('root',$value['root']);
+                    session('last_time',$value['last_time']);
+                    session('last_ip',$value['last_ip']);
                 }
                 $msg['state']=true;
-                session('admin',$username);
-                session('root',$isLogin);
-                session('login',1);
+                session('admin',$username);     //用户名
+                session('login',1);     //是否登录
                 $admin->last_time=time();
                 $admin->last_ip=get_client_ip();    //获取客户端ip
                 $admin->where("username='$username'")->save();

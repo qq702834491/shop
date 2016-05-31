@@ -1,3 +1,8 @@
+<script type="text/javascript">
+  //给外部js设置一个thinkphp里面的系统变量
+  var MODULE="__MODULE__";
+</script>
+<script src="{:ADMIN_JS}left.js"></script>
 <div class="left col-md-2">
   <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
     <li>
@@ -7,9 +12,9 @@
         <span class="pull-right glyphicon glyphicon-chevron-down"></span>
       </a>
       <ul id="index" class="nav nav-list collapse secondmenu" style="height: 0px;">
-        <li><a href="__CONTROLLER__/nav"><i class="glyphicon glyphicon-user"></i>导航栏内容管理</a></li>
+        <li><a href="__MODULE__/Index/nav"><i class="glyphicon glyphicon-user"></i>导航栏内容管理</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i>推荐商品管理</a></li>
-        <li><a href="__CONTROLLER__/kefu"><i class="glyphicon glyphicon-comment"></i>客服联系方式管理</a></li>
+        <li><a href="__MODULE__/Index/kefu"><i class="glyphicon glyphicon-comment"></i>客服联系方式管理</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-fire"></i>热卖商品管理</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-new-window"></i>新品商品管理</a></li>
       </ul>
@@ -25,12 +30,20 @@
     <li>
       <a href="#user" class="nav-header collapsed" data-toggle="collapse">
         <i class="glyphicon glyphicon-user"></i>
-        用户管理
+        账户管理
         <span class="pull-right glyphicon glyphicon-chevron-down"></span>
       </a>
       <ul id="user" class="nav nav-list collapse secondmenu" style="height: 0px;">
-        <li><a href="__MODULE__/User/admin"><i class="glyphicon glyphicon-asterisk"></i>管理员管理</a></li>
-        <li><a href="__MODULE__/User/user"><i class="glyphicon glyphicon-user"></i>顾客管理</a></li>
+        <if condition="session('root') eq 0">
+          <li><a href="__MODULE__/User/admin"><i class="glyphicon glyphicon-asterisk"></i>管理员管理</a></li>
+        </if>
+        <li><a href="__MODULE__/User/user"><i class="glyphicon glyphicon-user"></i>用户管理</a></li>
+        <li>
+          <!--模态框-->
+          <a href="javascript:;" data-toggle="modal" data-target="#changePwd">
+            <i class="glyphicon glyphicon-asterisk"></i>密码修改
+          </a>
+        </li>
       </ul>
     </li>
 
@@ -48,7 +61,7 @@
       </ul>
     </li>
     <li>
-      <a href="">
+      <a href="__MODULE__/Category/index">
         <i class="glyphicon glyphicon-th"></i>
         分类管理
       </a>
@@ -56,4 +69,33 @@
 
   </ul>
 </div>
-
+<!--修改密码模态框-->
+<div class="modal fade" id="changePwd">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">密码修改</div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="oldPwd">原密码：</label>
+          <input type="password" name="oldPwd" id="oldPwd" class="form-control" placeholder="请输入原密码">
+        </div>
+        <div class="form-group">
+          <label for="newPwd">新密码：</label>
+          <input type="password" name="newPwd" id="newPwd" class="form-control" placeholder="请输入新密码">
+        </div>
+        <div class="form-group">
+          <label for="confirmPwd">确认密码：</label>
+          <input type="password" name="confirmPwd" id="confirmPwd" class="form-control" placeholder="请确认一次新密码">
+        </div>
+        <div class="form-group">
+          <!--错误信息提示，默认隐藏-->
+          <span class="tips"></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="changeBtn">修改</button>
+        <button class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>

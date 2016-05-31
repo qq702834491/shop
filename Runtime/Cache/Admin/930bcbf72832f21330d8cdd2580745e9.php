@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>网上商城导航栏管理</title>
+  <title>网上商城后台首页</title>
   <link rel="stylesheet" type="text/css" href="/shop/Public/BS/css/bootstrap.min.css">
   <script type="text/javascript" src="/shop/Public/BS/js/jquery.min.js"></script>
   <script type="text/javascript" src="/shop/Public/BS/js/bootstrap.min.js"></script>
@@ -10,23 +10,22 @@
   <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>header.css">
   <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>left.css">
   <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>index.css">
-  <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>nav.css">
-  <script type="text/javascript" src="<?php echo ADMIN_JS;?>nav.js"></script>
-  <!--为外部js定义thinkphp使用的系统、路径常量-->
-  <script>
-    var CONTROLLER="/shop/index.php/Admin/Index";
+  <script src="<?php echo ADMIN_JS;?>category.js"></script>
+  <script type="text/javascript">
+    //将thinkphp的系统常量传递给外部js文件
+    var CONTROLLER="/shop/index.php/Admin/Category";
   </script>
 </head>
 <body>
-  <div class="header">
+<div class="header">
   <div class="logo pull-left col-md-2"><a href="/shop/index.php/Admin/index/index"><img src="<?php echo IMG_URL;?>logo.png" title="后台管理"></a></div>
   <div class="welcome pull-right">
     <span>欢迎<?php echo session('admin');?>登录</span>
     <a href="/shop/index.php/Admin/Login/logout"><span class="glyphicon glyphicon-log-out"></span>退出</a>
   </div>
 </div>
-  <div class="row">
-    <script type="text/javascript">
+<div class="row">
+  <script type="text/javascript">
   //给外部js设置一个thinkphp里面的系统变量
   var MODULE="/shop/index.php/Admin";
 </script>
@@ -125,56 +124,94 @@
     </div>
   </div>
 </div>
-    <div class="right col-md-10">
-      <div class="container">
-        <h2 class="text-primary">导航栏管理</h2><span class="help-block">首页最多只能显示8个导航信息</span>
-        <!--预览-->
-        <div class="preview">
-          <h3>首页导航预览</h3>
-          <ul class="nav navbar">
-            <?php if(is_array($preview)): foreach($preview as $key=>$preV): ?><li class="pull-left"><?php echo ($preV); ?></li><?php endforeach; endif; ?>
-          </ul>
-        </div>
-        <!--导航条列表-->
-        <div class="list">
-          <table class="table table-bordered">
-            <tr class="success">
-              <td class="text-center col-md-8">导航名称</td>
-              <td class="text-center col-md-4">操作</td>
-            </tr>
-            <!--用$time来监控foreach循环次数-->
-            <?php if(is_array($list)): foreach($list as $key=>$nav): ?><tr class="active tr<?php echo ($nav["n_id"]); ?>">
-                <td class="text-center"><?php echo ($nav["name"]); ?></td>
-                <td class="text-center">
-                  <button class="yes btn btn-primary btn-xs" id="show<?php echo ($nav["n_id"]); ?>" onclick="showIndex(<?php echo ($nav["n_id"]); ?>)" <?php if($nav[is_index] == 1): ?>disabled<?php endif; ?>>在首页显示</button>
-                  <button class="no btn btn-warning btn-xs" id="hide<?php echo ($nav["n_id"]); ?>" onclick="hideIndex(<?php echo ($nav["n_id"]); ?>)" <?php if($nav[is_index] == 0): ?>disabled<?php endif; ?>>在首页隐藏</button>
-                  <button class="del btn btn-danger btn-xs" id="del<?php echo ($nav["n_id"]); ?>">
-                    <span class="glyphicon glyphicon-remove"></span>删除
-                  </button>
-                </td>
-              </tr><?php endforeach; endif; ?>
-          </table>
-        </div>
-        <!--添加导航的表单-->
-        <form class="form-inline" method="post">
-          <div class="form-group">
-            <input type="text" name="name" class="form-control" placeholder="导航信息">
-          </div>
-          <div class="form-group">
-            <input type="text" name="url" class="form-control" placeholder="导航链接">
-          </div>
-          <div class="form-group">
-            <botton class="nav_add btn btn-primary">添加</botton>
-          </div>
-          <i></i>
-        </form>
+  <div class="right col-md-10">
+    <div class="container">
+      <h2 class="text-primary">分类管理</h2><span class="help-block">首页最多只能显示13个分类信息(详细子分类请点击分类名称)</span>
+      <table class="table table-bordered">
+        <tr>
+          <th class="text-center">顶级分类名字</th>
+          <th class="text-center">是否首页显示</th>
+          <th class="text-center">操作</th>
+        </tr>
+        <?php if(is_array($list)): foreach($list as $key=>$categoryList): ?><tr class="tr<?php echo ($categoryList["cat_id"]); ?>">
+            <td class="text-center"><a href="#"><?php echo ($categoryList["cat_name"]); ?></a></td>
+            <td class="text-center">
+              <?php if($categoryList['is_index'] == 0): ?><input type="checkbox" name="is_index" id="is_index<?php echo ($categoryList["cat_id"]); ?>">
+              <?php else: ?>
+                <input type="checkbox" name="is_index" id="is_index<?php echo ($categoryList["cat_id"]); ?>" checked><?php endif; ?>
+            </td>
+            <td class="text-center">
+              <button class="btn btn-primary btn-xs addSub" id="addSub<?php echo ($categoryList["cat_id"]); ?>" data-toggle="modal" data-target="#addSub">添加子类别</button>
+              <button class="btn btn-warning btn-xs modify" id="modify<?php echo ($categoryList["cat_id"]); ?>" data-toggle="modal" data-target="#modify">修改</button>
+              <button class="btn btn-danger btn-xs del" id="del<?php echo ($categoryList["cat_id"]); ?>">删除</button>
+            </td>
+          </tr><?php endforeach; endif; ?>
+        <tr>
+          <th class="text-center">子分类名字</th>
+          <th class="text-center">父分类名字</th>
+          <th class="text-center">操作</th>
+        </tr>
+        <?php if(is_array($subList)): foreach($subList as $key=>$subCatList): ?><tr class="tr<?php echo ($subCatList["cat_id"]); ?>">
+            <td class="text-center"><?php echo ($subCatList["subname"]); ?></td>
+            <td class="text-center"><?php echo ($subCatList["parname"]); ?></td>
+            <td class="text-center">
+              <button class="btn btn-danger btn-xs del" id="del<?php echo ($subCatList["cat_id"]); ?>">删除</button>
+            </td>
+          </tr><?php endforeach; endif; ?>
+      </table>
+      <div class="form-group col-md-3">
+        <input type="text" name="cat_name" id="cat_name" class="form-control" placeholder="请输入顶级分类名称">
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary cat_add"><span class="glyphicon glyphicon-plus"></span>添加新分类</button>
+      </div>
+      <div class="form-group">
+        <span class="tips" style="padding-left: 15px;"></span>
       </div>
     </div>
   </div>
-  <div class="footer text-center clearfix">
+</div>
+<div class="footer text-center clearfix">
   <span>友情链接：</span><a href="//www.manjusakaj.com" target="_blank">Manjusaka's Blog</a>
   <span>联系方式：manjusakaj@qq.com</span>
   <span>版权所有</span><i class="glyphicon glyphicon-copyright-mark"></i>
+</div>
+<!--修改模态框-->
+<div class="modal fade" id="modify">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>修改分类名称</h4>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="cat_id" id="cat_id">
+        <input type="text" name="newName" id="newName" class="form-control">
+        <span class="tips"></span>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary save">保存</button>
+        <button class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--添加子类别模态框-->
+<div class="modal fade" id="addSub">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>添加子分类</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" name="sub_name" class="form-control" placeholder="请输入子分类名称">
+        <span class="tips"></span>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary add">添加</button>
+        <button class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 </html>

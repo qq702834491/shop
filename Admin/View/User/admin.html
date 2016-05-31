@@ -12,6 +12,9 @@
   <link rel="stylesheet" href="{:ADMIN_CSS}index.css">
   <link rel="stylesheet" type="text/css" href="{:ADMIN_CSS}admin.css">
   <script type="text/javascript" src="{:ADMIN_JS}admin.js"></script>
+  <script type="text/javascript">
+    var CONTROLLER="__CONTROLLER__";
+  </script>
 </head>
 <body>
   <include file="Public:header"/>
@@ -20,14 +23,40 @@
     <div class="right col-md-10">
     	<div class="container">
     		<div class="list">
-    			<foreach name="list" item="adminList">
-    				{$adminList.a_id}
-    				{$adminList.username}
-    				{$adminList.add_time}
-    			</foreach>
+          <h3>管理员列表</h3>
+          <table class="table table-bordered">
+            <tr class="success">
+              <td class="text-center col-md-5">管理员名称</td>
+              <td class="text-center col-md-2">添加时间</td>
+              <td class="text-center col-md-2">上次登录时间</td>
+              <td class="text-center col-md-2">上次登录ip</td>
+              <td class="text-center col-md-1">操作</td>
+            </tr>
+            <foreach name="list" item="adminList">
+              <tr class="tr{$adminList.a_id}">
+                <td class="text-center">{$adminList.username}</td>
+                <td class="text-center">{$adminList.add_time|date="Y-m-d H:i:s",###}</td>
+                <td class="text-center">
+                  <if condition="$adminList['last_time'] eq '' ">
+                    <sapn class="text-warning">未登录过</sapn>
+                  <else />
+                    {$adminList.last_time|date="Y-m-d H:i:s",###}
+                  </if>
+                </td>
+                <td class="text-center">
+                  <if condition="$adminList['last_time'] eq '' ">
+                    <sapn class="text-warning">未登录过</sapn>
+                    <else />
+                    {$adminList.last_ip}
+                  </if>
+                 </td>
+                <td class="text-center"><a href="javascript:;" class="btn btn-danger btn-xs del" id="del{$adminList.a_id}">删除</a></td>
+              </tr>
+            </foreach>
+          </table>
     		</div>
     		<div class="col-md-6 form">
-    			<form action="__CONTROLLER__/adminAdd" method="post" class="form-horizontal">
+    			<form class="form-horizontal">
 	    			<div class="form-group">
 					    <label for="adminName" class="col-md-4 control-label">管理员名称：</label>
 					    <div class="col-md-8">

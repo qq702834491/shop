@@ -25,6 +25,9 @@
 	font-size: 12px;
 	text-align: center;
 }
-
+.tips{
+	color:red;
+	display: none;
+}
 
 

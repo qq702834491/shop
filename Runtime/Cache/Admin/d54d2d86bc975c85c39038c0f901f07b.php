@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>网上商城导航栏管理</title>
+  <title>网上商城后台首页</title>
   <link rel="stylesheet" type="text/css" href="/shop/Public/BS/css/bootstrap.min.css">
   <script type="text/javascript" src="/shop/Public/BS/js/jquery.min.js"></script>
   <script type="text/javascript" src="/shop/Public/BS/js/bootstrap.min.js"></script>
@@ -10,11 +10,10 @@
   <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>header.css">
   <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>left.css">
   <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>index.css">
-  <link rel="stylesheet" href="<?php echo ADMIN_CSS;?>nav.css">
-  <script type="text/javascript" src="<?php echo ADMIN_JS;?>nav.js"></script>
-  <!--为外部js定义thinkphp使用的系统、路径常量-->
-  <script>
-    var CONTROLLER="/shop/index.php/Admin/Index";
+  <link rel="stylesheet" type="text/css" href="<?php echo ADMIN_CSS;?>admin.css">
+  <script type="text/javascript" src="<?php echo ADMIN_JS;?>admin.js"></script>
+  <script type="text/javascript">
+    var CONTROLLER="/shop/index.php/Admin/User";
   </script>
 </head>
 <body>
@@ -40,9 +39,9 @@
         <span class="pull-right glyphicon glyphicon-chevron-down"></span>
       </a>
       <ul id="index" class="nav nav-list collapse secondmenu" style="height: 0px;">
-        <li><a href="/shop/index.php/Admin/Index/nav"><i class="glyphicon glyphicon-user"></i>导航栏内容管理</a></li>
+        <li><a href="/shop/index.php/Admin/User/nav"><i class="glyphicon glyphicon-user"></i>导航栏内容管理</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i>推荐商品管理</a></li>
-        <li><a href="/shop/index.php/Admin/Index/kefu"><i class="glyphicon glyphicon-comment"></i>客服联系方式管理</a></li>
+        <li><a href="/shop/index.php/Admin/User/kefu"><i class="glyphicon glyphicon-comment"></i>客服联系方式管理</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-fire"></i>热卖商品管理</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-new-window"></i>新品商品管理</a></li>
       </ul>
@@ -126,49 +125,51 @@
   </div>
 </div>
     <div class="right col-md-10">
-      <div class="container">
-        <h2 class="text-primary">导航栏管理</h2><span class="help-block">首页最多只能显示8个导航信息</span>
-        <!--预览-->
-        <div class="preview">
-          <h3>首页导航预览</h3>
-          <ul class="nav navbar">
-            <?php if(is_array($preview)): foreach($preview as $key=>$preV): ?><li class="pull-left"><?php echo ($preV); ?></li><?php endforeach; endif; ?>
-          </ul>
-        </div>
-        <!--导航条列表-->
-        <div class="list">
+    	<div class="container">
+    		<div class="list">
+          <h3>管理员列表</h3>
           <table class="table table-bordered">
             <tr class="success">
-              <td class="text-center col-md-8">导航名称</td>
-              <td class="text-center col-md-4">操作</td>
+              <td class="text-center col-md-5">管理员名称</td>
+              <td class="text-center col-md-2">添加时间</td>
+              <td class="text-center col-md-2">上次登录时间</td>
+              <td class="text-center col-md-2">上次登录ip</td>
+              <td class="text-center col-md-1">操作</td>
             </tr>
-            <!--用$time来监控foreach循环次数-->
-            <?php if(is_array($list)): foreach($list as $key=>$nav): ?><tr class="active tr<?php echo ($nav["n_id"]); ?>">
-                <td class="text-center"><?php echo ($nav["name"]); ?></td>
+            <?php if(is_array($list)): foreach($list as $key=>$adminList): ?><tr class="tr<?php echo ($adminList["a_id"]); ?>">
+                <td class="text-center"><?php echo ($adminList["username"]); ?></td>
+                <td class="text-center"><?php echo (date("Y-m-d H:i:s",$adminList["add_time"])); ?></td>
                 <td class="text-center">
-                  <button class="yes btn btn-primary btn-xs" id="show<?php echo ($nav["n_id"]); ?>" onclick="showIndex(<?php echo ($nav["n_id"]); ?>)" <?php if($nav[is_index] == 1): ?>disabled<?php endif; ?>>在首页显示</button>
-                  <button class="no btn btn-warning btn-xs" id="hide<?php echo ($nav["n_id"]); ?>" onclick="hideIndex(<?php echo ($nav["n_id"]); ?>)" <?php if($nav[is_index] == 0): ?>disabled<?php endif; ?>>在首页隐藏</button>
-                  <button class="del btn btn-danger btn-xs" id="del<?php echo ($nav["n_id"]); ?>">
-                    <span class="glyphicon glyphicon-remove"></span>删除
-                  </button>
+                  <?php if($adminList['last_time'] == '' ): ?><sapn class="text-warning">未登录过</sapn>
+                  <?php else: ?>
+                    <?php echo (date("Y-m-d H:i:s",$adminList["last_time"])); endif; ?>
                 </td>
+                <td class="text-center">
+                  <?php if($adminList['last_time'] == '' ): ?><sapn class="text-warning">未登录过</sapn>
+                    <?php else: ?>
+                    <?php echo ($adminList["last_ip"]); endif; ?>
+                 </td>
+                <td class="text-center"><a href="javascript:;" class="btn btn-danger btn-xs del" id="del<?php echo ($adminList["a_id"]); ?>">删除</a></td>
               </tr><?php endforeach; endif; ?>
           </table>
-        </div>
-        <!--添加导航的表单-->
-        <form class="form-inline" method="post">
-          <div class="form-group">
-            <input type="text" name="name" class="form-control" placeholder="导航信息">
-          </div>
-          <div class="form-group">
-            <input type="text" name="url" class="form-control" placeholder="导航链接">
-          </div>
-          <div class="form-group">
-            <botton class="nav_add btn btn-primary">添加</botton>
-          </div>
-          <i></i>
-        </form>
-      </div>
+    		</div>
+    		<div class="col-md-6 form">
+    			<form class="form-horizontal">
+	    			<div class="form-group">
+					    <label for="adminName" class="col-md-4 control-label">管理员名称：</label>
+					    <div class="col-md-8">
+					      <input type="text" class="form-control" name="adminName" id="adminName" placeholder="新添加的管理员名称">
+					    </div>
+					  	<div class="tips col-md-8 col-md-offset-4"></div>
+					  </div>
+					  <div class="form-group">
+					  	<div class="col-md-8 col-md-offset-4">
+					  		<button class="btn btn-primary">添加</button>
+					    </div>
+					  </div>
+    			</form>
+    		</div>
+    	</div>
     </div>
   </div>
   <div class="footer text-center clearfix">

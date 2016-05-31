@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>网上商城后台首页</title>
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/BS/css/bootstrap.min.css">
+  <script type="text/javascript" src="__PUBLIC__/BS/js/jquery.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/BS/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/BS/js/holder.min.js"></script>
+  <link rel="stylesheet" href="{:ADMIN_CSS}header.css">
+  <link rel="stylesheet" href="{:ADMIN_CSS}left.css">
+  <link rel="stylesheet" href="{:ADMIN_CSS}index.css">
+  <script src="{:ADMIN_JS}category.js"></script>
+  <script type="text/javascript">
+    //将thinkphp的系统常量传递给外部js文件
+    var CONTROLLER="__CONTROLLER__";
+  </script>
+</head>
+<body>
+<include file="Public:header"/>
+<div class="row">
+  <include file="Public:left"/>
+  <div class="right col-md-10">
+    <div class="container">
+      <h2 class="text-primary">分类管理</h2><span class="help-block">首页最多只能显示13个分类信息(详细子分类请点击分类名称)</span>
+      <table class="table table-bordered">
+        <tr>
+          <th class="text-center">顶级分类名字</th>
+          <th class="text-center">是否首页显示</th>
+          <th class="text-center">操作</th>
+        </tr>
+        <foreach name="list" item="categoryList">
+          <tr class="tr{$categoryList.cat_id}">
+            <td class="text-center"><a href="#">{$categoryList.cat_name}</a></td>
+            <td class="text-center">
+              <if condition="$categoryList['is_index'] eq 0">
+                <input type="checkbox" name="is_index" id="is_index{$categoryList.cat_id}">
+              <else/>
+                <input type="checkbox" name="is_index" id="is_index{$categoryList.cat_id}" checked>
+              </if>
+            </td>
+            <td class="text-center">
+              <button class="btn btn-primary btn-xs addSub" id="addSub{$categoryList.cat_id}" data-toggle="modal" data-target="#addSub">添加子类别</button>
+              <button class="btn btn-warning btn-xs modify" id="modify{$categoryList.cat_id}" data-toggle="modal" data-target="#modify">修改</button>
+              <button class="btn btn-danger btn-xs del" id="del{$categoryList.cat_id}">删除</button>
+            </td>
+          </tr>
+        </foreach>
+        <tr>
+          <th class="text-center">子分类名字</th>
+          <th class="text-center">父分类名字</th>
+          <th class="text-center">操作</th>
+        </tr>
+        <foreach name="subList" item="subCatList">
+          <tr class="tr{$subCatList.cat_id}">
+            <td class="text-center">{$subCatList.subname}</td>
+            <td class="text-center">{$subCatList.parname}</td>
+            <td class="text-center">
+              <button class="btn btn-danger btn-xs del" id="del{$subCatList.cat_id}">删除</button>
+            </td>
+          </tr>
+        </foreach>
+      </table>
+      <div class="form-group col-md-3">
+        <input type="text" name="cat_name" id="cat_name" class="form-control" placeholder="请输入顶级分类名称">
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary cat_add"><span class="glyphicon glyphicon-plus"></span>添加新分类</button>
+      </div>
+      <div class="form-group">
+        <span class="tips" style="padding-left: 15px;"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<include file="Public:footer"/>
+<!--修改模态框-->
+<div class="modal fade" id="modify">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>修改分类名称</h4>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="cat_id" id="cat_id">
+        <input type="text" name="newName" id="newName" class="form-control">
+        <span class="tips"></span>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary save">保存</button>
+        <button class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--添加子类别模态框-->
+<div class="modal fade" id="addSub">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>添加子分类</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" name="sub_name" class="form-control" placeholder="请输入子分类名称">
+        <span class="tips"></span>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary add">添加</button>
+        <button class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

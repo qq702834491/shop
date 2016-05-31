@@ -10,6 +10,9 @@ class IndexController extends Controller {
         //客服联系部分
         $kefu=M("Kefu");
         $this->kefu=$kefu->order('k_id desc')->limit(5)->getField('name,information',true);
+        //左侧分类列表
+        $category=M("Category");
+        $this->category=$category->where("is_index=1 and pid=0")->order('cat_id')->limit(13)->getField('cat_name',true);
 
         $this->display();
     }

@@ -325,3 +325,27 @@ INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000437s ]
 INFO: [ app_begin ] --END-- [ RunTime:0.000502s ]
 ERR: 非法操作:holder.js
 
+[ 2016-05-30T22:14:41+08:00 ] ::1 /shop/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000021s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000414s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000910s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001021s ]
+SQL: SHOW COLUMNS FROM `nav` [ RunTime:0.0048s ]
+SQL: SELECT `name`,`url` FROM `nav` WHERE ( is_index=1 ) ORDER BY addtime desc LIMIT 8   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `kefu` [ RunTime:0.0047s ]
+SQL: SELECT `name`,`information` FROM `kefu` ORDER BY k_id desc LIMIT 5   [ RunTime:0.0003s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000087s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000173s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.039507s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.039641s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000689s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000759s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000576s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000657s ]
+
